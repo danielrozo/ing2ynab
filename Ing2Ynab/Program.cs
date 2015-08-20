@@ -1,4 +1,6 @@
-﻿using Ing2Ynab.Excel;
+﻿using System;
+using Ing2Ynab.Converters;
+using Ing2Ynab.Excel;
 
 namespace Ing2Ynab
 {
@@ -6,7 +8,9 @@ namespace Ing2Ynab
     {
         static void Main(string[] args)
         {
-           var transactions = new IngExcelParser().GetIngTransactionsFromExcelFile(@"E:\Ing\report.xlsx");
+            var transactions = new IngExcelParser().GetIngTransactionsFromExcelFile(@"E:\Ing\report.xlsx");
+            var ynabTransactions = new IngToYnabTransactionConverter(new IngDescriptionToYnabPayeeConverter()).ConvertToYnabTransactions(transactions);
+            Console.WriteLine(ynabTransactions);
         }
     }
 }
