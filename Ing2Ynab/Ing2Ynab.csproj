@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\Entities\DescriptionToPayeeConversionRule.cs" />
     <Compile Include="Converters\IIngDescriptionToYnabPayeeConverter.cs" />
     <Compile Include="Converters\IngDescriptionToYnabPayeeConverter.cs" />
     <Compile Include="Converters\IngToYnabTransactionConverter.cs" />
