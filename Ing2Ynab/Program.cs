@@ -1,5 +1,5 @@
-﻿using System;
-using Ing2Ynab.Converters;
+﻿using Ing2Ynab.Converters;
+using Ing2Ynab.Csv;
 using Ing2Ynab.Excel;
 
 namespace Ing2Ynab
@@ -10,7 +10,8 @@ namespace Ing2Ynab
         {
             var transactions = new IngExcelParser().GetIngTransactionsFromExcelFile(@"E:\Ing\report.xlsx");
             var ynabTransactions = new IngToYnabTransactionConverter(new IngDescriptionToYnabPayeeConverter()).ConvertToYnabTransactions(transactions);
-            Console.WriteLine(ynabTransactions);
+            new CsvWriter().WriteCsv(ynabTransactions, @"E:\Ing\report.csv");
+            
         }
     }
 }

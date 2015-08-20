@@ -22,7 +22,7 @@ namespace Ing2Ynab.Excel
                 {
                     TransactionDate = DateTime.Parse(transactionsRow[fromRow, 1].Text),
                     Description = transactionsRow[fromRow, 2].Text,
-                    Import = decimal.Parse(transactionsRow[fromRow, 3].Text),
+                    Import = decimal.Parse(transactionsRow[fromRow, 3].Text.Replace(",",".")),
                     Category = transactionsRow[fromRow, 6].Text
                 };
         }

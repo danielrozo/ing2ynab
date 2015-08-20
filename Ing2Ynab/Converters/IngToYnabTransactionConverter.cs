@@ -19,16 +19,15 @@ namespace Ing2Ynab.Converters
                 {
                     var ynabTransaction = new YnabTransaction
                         {
-                            TransactionDate = ing.TransactionDate,
+                            Date = ing.TransactionDate,
                             Category = ing.Category,
-                            Cleared = true,
                             Memo = ing.Description,
                             Account = "Ing day to day"
                         };
                     if (ing.Import > 0)
                         ynabTransaction.Inflow = ing.Import;
                     else
-                        ynabTransaction.Outflow = ing.Import;
+                        ynabTransaction.Outflow = ing.Import * -1;
 
                     ynabTransaction.Payee = _payeeConverter.ConvertToPayee(ing.Description);
 

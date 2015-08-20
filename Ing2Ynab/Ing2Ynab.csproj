@@ -52,6 +52,7 @@
     <Compile Include="Converters\IIngDescriptionToYnabPayeeConverter.cs" />
     <Compile Include="Converters\IngDescriptionToYnabPayeeConverter.cs" />
     <Compile Include="Converters\IngToYnabTransactionConverter.cs" />
+    <Compile Include="Csv\CsvWriter.cs" />
     <Compile Include="Entities\YnabTransaction.cs" />
     <Compile Include="Excel\IngExcelParser.cs" />
     <Compile Include="Entities\IngTransaction.cs" />
