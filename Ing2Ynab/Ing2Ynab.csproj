@@ -48,9 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\IIngDescriptionToYnabPayeeConverter.cs" />
-    <Compile Include="Converters\IngDescriptionToYnabPayeeConverter.cs" />
+    <Compile Include="YnabTransformation\CategoryTransformationRule.cs" />
+    <Compile Include="YnabTransformation\PayeeTransformationRule.cs" />
+    <Compile Include="YnabTransformation\YnabTransactionsTransformer.cs" />
     <Compile Include="Converters\IngToYnabTransactionConverter.cs" />
+    <Compile Include="YnabTransformation\IYnabTransformationRule.cs" />
+    <Compile Include="YnabTransformation\IngToYnabTransformationRulesBuilder.cs" />
     <Compile Include="Csv\CsvWriter.cs" />
     <Compile Include="Entities\YnabTransaction.cs" />
     <Compile Include="Excel\IngExcelParser.cs" />
@@ -61,6 +64,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <Resource Include="UserPreferences\CategoryMapping.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

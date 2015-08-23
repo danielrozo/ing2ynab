@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Ing2Ynab.Entities;
+using Ing2Ynab.YnabTransformation;
 
 namespace Ing2Ynab.Converters
 {
     internal class IngToYnabTransactionConverter
     {
-        private readonly IIngDescriptionToYnabPayeeConverter _payeeConverter;
+        private readonly YnabTransactionsTransformer _transactionConverter;
 
-        public IngToYnabTransactionConverter(IIngDescriptionToYnabPayeeConverter payeeConverter)
+        public IngToYnabTransactionConverter(YnabTransactionsTransformer transactionConverter)
         {
-            _payeeConverter = payeeConverter;
+            _transactionConverter = transactionConverter;
         }
 
         public IEnumerable<YnabTransaction> ConvertToYnabTransactions(IEnumerable<IngTransaction> ingTransactions)
@@ -29,7 +30,7 @@ namespace Ing2Ynab.Converters
                     else
                         ynabTransaction.Outflow = ing.Import * -1;
 
-                    ynabTransaction.Payee = _payeeConverter.ConvertToPayee(ing.Description);
+                    ynabTransaction = _transactionConverter.Transform(ynabTransaction);
 
                     return ynabTransaction;
                 });
