@@ -9,8 +9,9 @@ namespace Ing2Ynab
     {
         static void Main(string[] args)
         {
-            var transactions = new IngExcelParser().GetIngTransactionsFromExcelFile(@"E:\Ing\report.xlsx");
-            var conversionRules = new IngToYnabTransformationRulesBuilder().BuildConversionRules();
+            var convertedExcelFile = new IngExcelConverter().ConvertToXlsx(@"C:\Users\DRozoXPS13\Downloads\Movimientos_CuentaNOMINA_19082015.xls");
+            var transactions = new IngExcelParser().GetIngTransactionsFromExcelFile(convertedExcelFile);
+            var conversionRules = new YnabTransformationRulesBuilder().BuildConversionRules();
             var ynabTransactions = 
                 new IngToYnabTransactionConverter(new YnabTransactionsTransformer(conversionRules))
                 .ConvertToYnabTransactions(transactions);

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Ing2Ynab.YnabTransformation
 {
-    internal class IngToYnabTransformationRulesBuilder
+    internal class YnabTransformationRulesBuilder
     {
         //takes a JSON, builds an IEnumerable<IIngToYnabConversionRule>
         public IEnumerable<IYnabTransformationRule> BuildConversionRules()
