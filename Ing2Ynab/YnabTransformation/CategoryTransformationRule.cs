@@ -5,18 +5,12 @@ namespace Ing2Ynab.YnabTransformation
 {
     internal class CategoryTransformationRule : IYnabTransformationRule
     {
-        private readonly string _sourceCategory;
-        private readonly string _targetCategory;
-
-        public CategoryTransformationRule(string sourceCategory, string targetCategory)
-        {
-            _sourceCategory = sourceCategory;
-            _targetCategory = targetCategory;
-        }
+        public string SourceCategory { get; set; }
+        public string TargetCategory { get; set; }
 
         public YnabTransaction Transform(YnabTransaction ynabTransaction)
         {
-            ynabTransaction.Category.Replace(_sourceCategory, _targetCategory);
+            ynabTransaction.Category = ynabTransaction.Category.Replace(SourceCategory, TargetCategory);
             return ynabTransaction;
         }
     }

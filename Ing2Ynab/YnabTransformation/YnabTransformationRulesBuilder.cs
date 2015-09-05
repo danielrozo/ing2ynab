@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Ing2Ynab.YnabTransformation
 {
     internal class YnabTransformationRulesBuilder
     {
-        //takes a JSON, builds an IEnumerable<IIngToYnabConversionRule>
         public IEnumerable<IYnabTransformationRule> BuildConversionRules()
         {
             return BuildPayeeTransformationRules().Concat(BuildCategoryTransformationRules());
@@ -13,18 +14,20 @@ namespace Ing2Ynab.YnabTransformation
 
         private IList<IYnabTransformationRule> BuildPayeeTransformationRules()
         {
-            return new List<IYnabTransformationRule>
-            {
-                new PayeeTransformationRule("Amazon EU", "Amazon")
-            };
+            var jsonData = File.ReadAllText("UserPreferences\\PayeeMapping.json");
+
+            var rules = JsonConvert.DeserializeObject<List<PayeeTransformationRule>>(jsonData);
+
+            return new List<IYnabTransformationRule>(rules);
         }
 
         private IList<IYnabTransformationRule> BuildCategoryTransformationRules()
         {
-            return new List<IYnabTransformationRule>
-            {
-                new CategoryTransformationRule("libros musica juegos", "Books music and games")
-            };
+            var jsonData = File.ReadAllText("UserPreferences\\CategoryMapping.json");
+
+            var rules = JsonConvert.DeserializeObject<List<CategoryTransformationRule>>(jsonData);
+
+            return new List<IYnabTransformationRule>(rules);
         }
     }
 }

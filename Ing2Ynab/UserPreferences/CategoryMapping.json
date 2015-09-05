@@ -1,8 +1,6 @@
-﻿{
-  "categgoryMappings": [
-    {
-      "originalCategory": "Libros Música y juegos",
-      "targetCategory": "Books music and games"
-    }
-  ]
-}
+﻿[
+  {
+    "sourceCategory": "Libros Música y juegos",
+    "targetCategory": "Books music and games"
+  }
+]

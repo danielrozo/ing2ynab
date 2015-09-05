@@ -5,18 +5,12 @@ namespace Ing2Ynab.YnabTransformation
 {
     internal class PayeeTransformationRule : IYnabTransformationRule
     {
-        private readonly string _sourcePayee;
-        private readonly string _targetPayee;
-
-        public PayeeTransformationRule(string sourcePayee, string targetPayee)
-        {
-            _sourcePayee = sourcePayee;
-            _targetPayee = targetPayee;
-        }
+        public string SourcePayee;
+        public string TargetPayee;
 
         public YnabTransaction Transform(YnabTransaction ynabTransaction)
         {
-            ynabTransaction.Payee.Replace(_sourcePayee, _targetPayee);
+            ynabTransaction.Payee = ynabTransaction.Payee.Replace(SourcePayee, TargetPayee);
             return ynabTransaction;
         }
     }

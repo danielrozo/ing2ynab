@@ -23,7 +23,8 @@ namespace Ing2Ynab.Converters
                             Date = ing.TransactionDate,
                             Category = ing.Category,
                             Memo = ing.Description,
-                            Account = "Ing day to day"
+                            Account = "Ing day to day",
+                            Payee = ing.Description
                         };
                     if (ing.Import > 0)
                         ynabTransaction.Inflow = ing.Import;

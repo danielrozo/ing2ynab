@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Ing2Ynab.Entities;
 using OfficeOpenXml;
+using System.Globalization;
 
 namespace Ing2Ynab.Excel
 {
@@ -20,7 +21,7 @@ namespace Ing2Ynab.Excel
         {
             return from transactionsRow in transactionsRows let fromRow = transactionsRow.Start.Row select new IngTransaction
                 {
-                    TransactionDate = DateTime.Parse(transactionsRow[fromRow, 1].Text),
+                    TransactionDate = DateTime.Parse(transactionsRow[fromRow, 1].Text, new CultureInfo("es-es")),
                     Description = transactionsRow[fromRow, 2].Text,
                     Import = decimal.Parse(transactionsRow[fromRow, 3].Text.Replace(",",".")),
                     Category = transactionsRow[fromRow, 6].Text

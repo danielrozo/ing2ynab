@@ -4,6 +4,7 @@ using NPOI.OpenXml4Net.OPC;
 using NPOI.XSSF;
 using NPOI.XSSF.UserModel;
 using System.IO;
+using OfficeOpenXml;
 
 namespace Ing2Ynab.Excel
 {
@@ -11,27 +12,22 @@ namespace Ing2Ynab.Excel
     {
         public string ConvertToXlsx(string xlsPath)
         {
-            var hssfWorkbook = new HSSFWorkbook(new FileStream(xlsPath, FileMode.Open));
-            var firstWorksheet = hssfWorkbook.GetSheetAt(0);
+            var oldWorkbook = new HSSFWorkbook(new FileStream(xlsPath, FileMode.Open));
+            var oldWorkSheet = oldWorkbook.GetSheetAt(0);
             var newExcelPath = xlsPath.Replace("xls", "xlsx");
-            using (var fileStream = new FileStream(newExcelPath, FileMode.Create))
-            {
-                var xssfWorkBook = new XSSFWorkbook();
-                var xSSFSheet = new XSSFSheet();
-                xssfWorkBook.Add(xSSFSheet);
-                foreach (HSSFRow row in firstWorksheet)
-                {
-                    var newRow = xssfWorkBook.GetSheetAt(0).CreateRow(row.RowNum);
-                    newRow.RowStyle = xssfWorkBook.CreateCellStyle();
-                    for (int ii = 0; ii < row.Cells.Count; ii++)
-                    {
-                        var newCell = newRow.CreateCell(row.GetCell(ii).ColumnIndex);
-                        newCell = row.Cells[ii];
-                    }
-                }
+            var excelPackage = new ExcelPackage(new FileInfo(newExcelPath));
+            var workSheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
 
-                xssfWorkBook.Write(fileStream);
+            foreach (HSSFRow oldRow in oldWorkSheet)
+            {
+                workSheet.InsertRow(oldRow.RowNum + 1, 1);
+
+                for (int ii = oldRow.FirstCellNum; ii < oldRow.Cells.Count - 1; ii++)
+                {
+                    workSheet.Cells[oldRow.RowNum + 1, ii + 1].Value = oldRow.Cells[ii].StringCellValue;
+                }
             }
+            excelPackage.Save();
 
             return newExcelPath;
         }
