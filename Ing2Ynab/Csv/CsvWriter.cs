@@ -13,6 +13,7 @@ namespace Ing2Ynab.Csv
             Type itemType = typeof(T);
             var props = itemType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                                 .OrderBy(p => p.Name);
+            CreateDirectoryIfNecessary(path);
 
             using (var writer = new StreamWriter(path))
             {
@@ -22,6 +23,15 @@ namespace Ing2Ynab.Csv
                 {
                     writer.WriteLine(string.Join(", ", props.Select(p => p.GetValue(item, null).ToString().Replace(",", ""))));
                 }
+            }
+        }
+
+        private static void CreateDirectoryIfNecessary(string path)
+        {
+            var pathWithoutFileName = new FileInfo(path).Directory;
+            if (!Directory.Exists(pathWithoutFileName.FullName))
+            {
+                Directory.CreateDirectory(pathWithoutFileName.FullName);
             }
         }
     }
